@@ -24,7 +24,7 @@ jobs:
       - name: Install puhelinluettelo
         run: |
           cd ./puhelinluettelo
-          npm npm install --fix
+          npm install --fix
       - name: Check style
         run: npm run lint
       - name: build
