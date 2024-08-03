@@ -24,9 +24,10 @@ jobs:
       - name: Check style
         run: npm run lint
       - name: build
-        run: | 
-          Remove-Item -Recurse -Force dist && cd ./puhelinluettelo && npm run build && Copy-Item dist -Recurse ../../full-stack-open-puhelintluottelo
-        shell: pwsh
+        run: |
+          cd ./puhelinluettelo
+          npm run build
+          mv ./dist ..
       - name: Run flyctl deploy --remoter-only
         run: flyctl deploy --remote-only
         env:
