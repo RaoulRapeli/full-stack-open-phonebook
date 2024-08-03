@@ -25,7 +25,7 @@ jobs:
         run: npm run lint
       - name: build
         shell: pwsh
-        run: npm run build:ui
+        run: npm run build:uiPowerShell
       - name: Run flyctl deploy --remoter-only
         run: flyctl deploy --remote-only
         env:

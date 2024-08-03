@@ -8,6 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ./puhelinluettelo && npm run build && @powershell Copy-Item dist -Recurse ../../full-stack-open-puhelintluottelo",
+    "build:uiPowerShell": "Remove-Item -Recurse -Force dist && cd ./puhelinluettelo && npm run build && Copy-Item dist -Recurse ../../full-stack-open-puhelintluottelo",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
