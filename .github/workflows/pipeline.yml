@@ -20,7 +20,11 @@ jobs:
           node-version: '16'
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Install dependencies
-        run: npm install --fix
+        run: | 
+          npm install --fix
+          cd ./puhelinluettelo
+          npm npm install --fix
+          cd ..
       - name: Check style
         run: npm run lint
       - name: build
