@@ -24,6 +24,7 @@ jobs:
       - name: Check style
         run: npm run lint
       - name: build
+        shell: pwsh
         run: npm run build:ui
       - name: Run flyctl deploy --remoter-only
         run: flyctl deploy --remote-only
