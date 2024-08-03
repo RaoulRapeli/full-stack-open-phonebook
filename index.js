@@ -22,6 +22,10 @@ app.get('/api/persons', (request, response) => {
   })
 })
 
+app.get('/version', (req, res) => {
+  res.send('1') // change this string to ensure a new version deployed
+})
+
 app.get('/health', (request, response) => {
   response.send('ok')
 })
