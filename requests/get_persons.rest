@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/persons/
+# GET https://fullstackopen2024part3-small-shape-4743.fly.dev/api/persons/1

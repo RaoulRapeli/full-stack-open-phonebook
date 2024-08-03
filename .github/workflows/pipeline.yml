@@ -1,0 +1,70 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    concurrency: deploy-group
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Install dependencies
+        run: npm install --fix
+      - name: Check style
+        run: npm run lint
+      - name: build
+        run: npm run build:ui
+      - name: Run flyctl deploy --remoter-only
+        run: flyctl deploy --remote-only
+        env:
+            FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Discord Webhook Notify failure
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ failure() }}
+        with:
+          severity: error
+          text: Build failed
+          description: "commit"
+          details: "${{ github.event.head_commit.url }} by ${{ github.actor }} broke the build :("
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@777684df761b882a3f4f70db16ac70d8cc78d0ea
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true
+          RELEASE_BRANCHES: main
+      - name: Discord Webhook Notify success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: ${{ success() }}
+        with:
+          severity: info
+          text: A new version of Pokedex deployed
+          description: "to ${{ secrets.DEPLOYMENT_URL}} by ${{ github.actor }}"
+          details: ""
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+        

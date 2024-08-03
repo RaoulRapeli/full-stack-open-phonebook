@@ -1,0 +1,8 @@
+# POST https://fullstackopen2024part3-small-shape-4743.fly.dev/api/persons
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name":"Te",
+    "number":"041-123456"
+}
