@@ -69,7 +69,7 @@ jobs:
         if: ${{ success() }}
         with:
           severity: info
-          text: A new version of Pokedex deployed
+          text: A new version of Puhelinluettelo deployed
           description: "to ${{ secrets.DEPLOYMENT_URL}} by ${{ github.actor }}"
           details: ""
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

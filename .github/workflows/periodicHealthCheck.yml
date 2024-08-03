@@ -11,7 +11,7 @@ jobs:
       - name: Check the deployed service URL
         uses: jtalk/url-health-check-action@v4
         with:
-          url: https://full-stack-open-pokedex-billowing-sunset-9824.fly.dev/health
+          url: https://fullstackopen2024part3-small-shape-4743.fly.dev//health
           follow-redirect: false
           max-attempts: 3
           retry-delay: 5s
