@@ -1,21 +1,21 @@
-name: Periodic health check
+# name: Periodic health check
 
-on:
-  schedule:
-    - cron: '00 12 * * *'
+# on:
+#   schedule:
+#     - cron: '00 12 * * *'
 
-jobs:
-  simple_schedule:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v4
-        with:
-          url: https://fullstackopen2024part3-small-shape-4743.fly.dev/health
-          follow-redirect: false
-          max-attempts: 3
-          retry-delay: 5s
-          retry-all: false
+# jobs:
+#   simple_schedule:
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - name: Check the deployed service URL
+#         uses: jtalk/url-health-check-action@v4
+#         with:
+#           url: https://fullstackopen2024part3-small-shape-4743.fly.dev/health
+#           follow-redirect: false
+#           max-attempts: 3
+#           retry-delay: 5s
+#           retry-all: false
 
 
         
